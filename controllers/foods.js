@@ -8,7 +8,8 @@ router.get('/', async (req, res) => {
     const currentUser = req.session.user;
     const userInDb = await User.findById(currentUser);
     res.render('foods/index.ejs', {
-        pantry: userInDb.pantry
+        user: userInDb,
+        pantry: userInDb.pantry,
     });
 } catch(err) {
     return res.send(`There's an issue accessing your pantry from the database. See more details below: ${err.message}.`);
@@ -27,8 +28,23 @@ router.post('/', async (req, res) => {
     await userInDb.save();
     res.redirect("/users/:userId/foods");
     } catch(err) {
-        return res.send(`There's an issue adding your item to the database. See more details below: ${err.message}.`);
+        return res.send(`There's an issue adding your item to the database. See more details here: ${err.message}.`);
     }
 })
+
+router.delete('/:itemId', async (req, res) => {
+    try {
+    const currentUser = req.session.user; 
+    const userInDb = await User.findById(currentUser);
+    const itemId = req.params.itemId;
+    userInDb.pantry.pull({ _id: itemId });
+    await userInDb.save();
+    res.redirect("/users/:userId/foods")
+    } catch(err) {
+        return res.send(`There's an issue finding and deleting the item in your database. See more details here: ${err.message}.`)
+    }
+})
+
+
 
 module.exports = router;
