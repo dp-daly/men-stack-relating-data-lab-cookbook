@@ -11,8 +11,9 @@
     <% if (pantry.length > 0) { %>
         <ol>
             <% pantry.forEach((item) => { %>
-            <li><%= item.name %> <form action="/users/<%=user._id%>/foods/<%=item._id%>?_method=DELETE" method="POST">
+            <li><%= item.name %> <form action="/users/<%= user._id %>/foods/<%= item._id %>?_method=DELETE" method="POST">
                 <button type="submit">Remove</button>
+                <button><a href="/users/<%= user._id %>/foods/<%= item._id %>/edit">Edit</a></button>
               </form></li>
             <% }) %>
         </ol>
