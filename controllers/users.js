@@ -10,4 +10,12 @@ router.get("/", async (req, res) => {
     })
 });
 
+router.get("/:pantryId", async (req, res) => {
+    const currentUser = req.session.user;
+    const userInDb = await User.findById(currentUser);
+    res.render("show.ejs", {
+        pantry: userInDb.pantry,
+    })
+})
+
 module.exports = router;

@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    <%- include('../partials/_navbar.ejs') %>
     <% users.forEach((user) => { %>
     <p>
         <ul>
-            <li><%= user.username %></li>
+            <li><a href="/users/<%= user._id %>/users/<%= user._id %>"><%= user.username %></a></li>
         </ul>
     </p>
    <% }) %>

@@ -6,6 +6,7 @@
     <title>Edit an item</title>
 </head>
 <body>
+    <%- include('./partials/_navbar.ejs') %>
     <form action="/users/<%= user.id %>/foods/<%= item.id %>/edit?_method=PUT" method="POST">
         <label for="item">Item:</label>
         <input type="text" name="name" value="<%= item.name %>" autocomplete="off">
