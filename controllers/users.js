@@ -10,11 +10,12 @@ router.get("/", async (req, res) => {
     })
 });
 
-router.get("/:pantryId", async (req, res) => {
+router.get("/:username", async (req, res) => {
     const currentUser = req.session.user;
     const userInDb = await User.findById(currentUser);
+    const clickedUser = await User.findOne( {username: req.params.username })
     res.render("show.ejs", {
-        pantry: userInDb.pantry,
+        pantry: clickedUser.pantry,
     })
 })
 
